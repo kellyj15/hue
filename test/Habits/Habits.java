@@ -17,6 +17,7 @@ public abstract class Habits {
     private boolean active;
     private String descriptions;
     private int streakDays;
+    private int dayKept;
     
 /***
  * day signed or not 
@@ -26,7 +27,7 @@ public abstract class Habits {
     
     private static int Signday(todaysign){
         
-        int dayKept=0;
+        
         
         boolean isSignIn = false;
         
@@ -43,6 +44,7 @@ public abstract class Habits {
             if(todaysign == null ){
             
                 isSignIn=false;
+                dayKept=dayKept+0;
              
             }else{//if today signed
               isSignIn=true;
