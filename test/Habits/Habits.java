@@ -19,42 +19,40 @@ public abstract class Habits {
     private int streakDays;
     
 /***
- * user signed or not 
+ * day signed or not 
+ * todaysign is object, to get sign information 
  * @return 
  */
     
-    private static int SignDay(){
+    private static int Signday(todaysign){
         
-        Integer dayKept=1;
+        int dayKept=0;
         
         boolean isSignIn = false;
         
-        String sign;
         //hashtable to store user is Signed or not
-        Hashtable<Integer, String> data = new Hashtable<>();
-        
+        Hashtable signed = new Hashtable();
+        //Enumeration date = signed.keys();
         //get today date
         Date today = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMddyyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = sdf.format(today);
         
         try{
-            //get today sign information 
-            SignDetail signToday;
-            if (signToday == null){
-                //get yesterday sign information
-                if(yesterday == null){
-                    
-                }else{
-                    
-                }
-            }else{//
+            //today not sign 
+            if(todaysign == null ){
+            
+                isSignIn=false;
+             
+            }else{//if today signed
               isSignIn=true;
-              sign="signed success";
-              data.put(dayKept,sign);
+              signed.put(dateString,isSignIn);
+              dayKept++;
             }
                 
-            
-        }
+        }catch (Exception e) {
+            // TODO generated catch block
+            e.printStackTrace();
+
     }
 }
