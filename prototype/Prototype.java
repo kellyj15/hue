@@ -30,7 +30,7 @@ public class Prototype {
         //Print Users name
         System.out.println("User name: " + me.getName());
         //Attempt to post a text-only status to the user's feed.
-        FacebookType response = fbClient.publish("me/feed", FacebookType.class, Parameter.with("message", "Public API test post!"));
-        System.out.println("fb.com/" + response.getId());
+        //FacebookType response = fbClient.publish("me/feed", FacebookType.class, Parameter.with("message", "Public API test post!"));
+        //System.out.println("fb.com/" + response.getId());
     }
 }

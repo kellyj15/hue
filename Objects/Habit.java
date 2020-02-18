@@ -13,9 +13,11 @@ public class Habit {
     //Title of a given habit
     private String title;
     //Whether or not the habit is being actively tracked.
-    private boolean active;
+    private boolean isActive;
     //Short description of the habit.
     private String description;
+    //Is this a good habit or a bad habit?
+    private boolean isGood;
     //Number of days in a row that a habit was kept.
     private int streakDays;
     //A list of dates in which this habit was kept, sorted from earliest to latest.
@@ -23,20 +25,26 @@ public class Habit {
     private ArrayList<LocalDate> daysKept;
     //File path to an icon that can be used in the UI to represent this habit.
     private String imagePath;
-    //Default Habit title
+    //Default Habit title if not specified.
     private static String defaultTitle = "New Habit";
-    //Default habit description
+    //Default habit description if not specified.
     private static String defaultDesc = "No Description";
+    //Set habit to a good habit if not specified.
+    private static boolean defaultIsGood = true;
+    //Set the habit to be tracked upon creation until the user makes a change.
+    private static boolean defaultIsActive = true;
 
     /**
      * Constructor when a habit title and description is given.
      * @param _title - The Title of the habit.
-     * @param _desc - The description of the habit.
+     * @param _description - The description of the habit.
+     * @param _isGood Is this habit a good or bad habit?
      */
-    public Habit(String _title, String _desc) {
+    public Habit(String _title, String _description, boolean _isGood) {
         this.title = _title;
-        this.description = _desc;
-        this.active = true;
+        this.description = _description;
+        this.isActive = defaultIsActive;
+        this.isGood = _isGood;
         this.streakDays = 0;
         this.daysKept = new ArrayList<>();
         this.imagePath = null;
@@ -46,7 +54,7 @@ public class Habit {
      * Constructor when a title and description are not given.
      */
     public Habit() {
-        this(defaultTitle, defaultDesc);
+        this(defaultTitle, defaultDesc, defaultIsGood);
     }
 
     /**
@@ -54,9 +62,15 @@ public class Habit {
      * @param _title - Title of the habit.
      */
     public Habit(String _title) {
-        this(_title, defaultDesc);
+        this(_title, defaultDesc, defaultIsGood);
     }
 
+    /**
+     * Method to calculate the current streak, in days, that this habit has been kept.
+     * TODO: update method to allow for habits which are kept once every x days instead of only every day.
+     * TODO: update to allow for habits to be kept on certain days of the week, such as every MWF.
+     * @return the number of days a habit has been kept in a row. A day in which a habit was not kept breaks this streak.
+     */
     public int calculateStreakDays() {
         //Set streak to zero to start.
         int streak = 0;
@@ -87,11 +101,15 @@ public class Habit {
     }
 
     public boolean isActive() {
-        return this.active;
+        return this.isActive;
     }
 
     public String getDescription() {
         return this.description;
+    }
+
+    public boolean isGood() {
+        return this.isGood;
     }
 
     public int getStreakDays() {
@@ -120,8 +138,12 @@ public class Habit {
         this.title = _title;
     }
 
-    public void setActive(boolean _active) {
-        this.active = _active;
+    public void setActive(boolean _isActive) {
+        this.isActive = _isActive;
+    }
+
+    public void setIsGood(boolean _isGood) {
+        this.isGood = _isGood;
     }
 
     public void setDescription(String _description) {
