@@ -10,7 +10,7 @@ import com.restfb.*;
 import com.restfb.types.User;
 import com.restfb.types.FacebookType;
 
-public class Prototype {
+public class FBPrototype {
 
     // The application ID number is created by facebook and does not change.
     private static String appID = "174020750705484";
