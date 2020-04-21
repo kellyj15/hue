@@ -1,7 +1,7 @@
 package Database;
 
 /**
- *
+ * connect the database Mysql, and sql update, sql get result
  * @author luod1
  */
 import java.sql.*;

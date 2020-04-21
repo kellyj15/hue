@@ -1,17 +1,16 @@
 package GuiAndControllers;
 
-import Habit_API.GmailApapter;
-import Translators.UserApapter;
-
-import Habit_API.SendGmailApi;
-import Habit_API.GmailInterface;
-import javax.swing.JOptionPane;
-import Translators.UserInterface;
-
 /**
+ * forgot password frame and controller
+ * find password by username
  *Class is send email to recovery password
  * @author dan
  */
+import Habit_API.GmailApapter;
+import Translators.UserApapter;
+import javax.swing.JOptionPane;
+import Translators.UserInterface;
+
 public class ForgotPassword extends javax.swing.JFrame {
 
     /**

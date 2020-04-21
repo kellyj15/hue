@@ -131,6 +131,10 @@ public class RankingListFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * back to the main frame
+     * @param evt 
+     */
     private void jbt_BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_BackActionPerformed
         // TODO add your handling code here:
         new MainHabitFrame().setVisible(true);
@@ -148,10 +152,10 @@ public class RankingListFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "system error！");
             return;
         }
-        
+        //get data of habits
         Object[][] data = DateListHabits.listToArray4Rank(list);
         DefaultTableModel tableModel = new DefaultTableModel(data, this.columnTitle);
-        
+        // build new table
         this.jtable_Ranking.setModel(tableModel);
         this.jtable_Ranking.setEnabled(false);
     }

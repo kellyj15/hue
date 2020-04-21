@@ -8,10 +8,13 @@ package Model;
 public class TwitterUserInfo {
 
     private int Twitter_user_id;
-    private String Twitter_screen_name;//user username
+    private String Twitter_screen_name;//twitter user username
     private String Access_token;
     private String Access_token_secret;
 
+    /**
+     * Constructor when twitter information is given or not given
+     */
     public TwitterUserInfo() {
 
     }

@@ -1,17 +1,24 @@
 package Database;
-
+/**
+ *database of habits modify
+ * get habits information, insert, update, deleted
+ * @author dan
+ */
 import Model.Habit;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author luod1
- */
+
 public class DBHabitsSql extends DatabaseConnect implements DBHabitsInterface {
 
+    /**
+     * get habit by user's name
+     * save habit at list
+     * @param _name
+     * @return 
+     */
     @Override
     public List<Habit> getAll(String _name) {
         List<Habit> list = new ArrayList<Habit>();
@@ -37,6 +44,13 @@ public class DBHabitsSql extends DatabaseConnect implements DBHabitsInterface {
         return null;
     }
 
+    /**
+     * get active habit 
+     * save them at list
+     * @param _name username
+     * @param _active status is active
+     * @return 
+     */
     @Override
     public List<Habit> getActiveHabits(String _name, String _active) {
         List<Habit> list = new ArrayList<Habit>();
@@ -61,6 +75,11 @@ public class DBHabitsSql extends DatabaseConnect implements DBHabitsInterface {
         return null;
     }
 
+    /**
+     * insert habits to database
+     * @param _habit
+     * @return 
+     */
     @Override
     public boolean insertHabit(Habit _habit) {
         String sql = "INSERT into habit (title,description,streakDays,status,name,streakTime,streak,flag) VALUES (?,?,?,?,?,?,?,?)";
@@ -74,6 +93,11 @@ public class DBHabitsSql extends DatabaseConnect implements DBHabitsInterface {
 
     }
 
+    /**
+     * get habit by use id
+     * @param _key habit id
+     * @return 
+     */
     @Override
     public Habit getHabit(int _key) {
         Habit h = new Habit();
@@ -99,6 +123,10 @@ public class DBHabitsSql extends DatabaseConnect implements DBHabitsInterface {
         return null;
     }
 
+    /**
+     * order the list of active habits
+     * @return 
+     */
     @Override
     public List<Habit> getRanking() {
         List<Habit> list = new ArrayList<>();
@@ -125,6 +153,11 @@ public class DBHabitsSql extends DatabaseConnect implements DBHabitsInterface {
 
     }
 
+    /**
+     * update the habit information
+     * @param _h
+     * @return 
+     */
     @Override
     public boolean updateHabit(Habit _h) {
         String sql = "UPDATE habit set title=?,description=?,streakDays=?,status=? where id =?";
@@ -134,6 +167,14 @@ public class DBHabitsSql extends DatabaseConnect implements DBHabitsInterface {
         boolean update = this.executeUpdate(sql, obj);
         return update;
     }
+    
+    /**
+     * update the streak days
+     * @param _daypush
+     * @param _key
+     * @param _streakTime
+     * @return 
+     */
     @Override
     public boolean updateHabitDays(int _daypush, int _key, Date _streakTime) {
         String sql = "UPDATE habit set streakDays=?,streakTime=?,flag='1' where id =?"; 
@@ -142,6 +183,12 @@ public class DBHabitsSql extends DatabaseConnect implements DBHabitsInterface {
         return update;
     }
 
+    /**
+     * update the max streak days
+     * @param _maxDay
+     * @param _key
+     * @return 
+     */
     @Override
     public boolean updateMaxHabitDays(int _maxDay, int _key) {
         String sql = "UPDATE habit set streak=? where id =?";
@@ -151,6 +198,11 @@ public class DBHabitsSql extends DatabaseConnect implements DBHabitsInterface {
     
     }
 
+    /**
+     * change habit status to active
+     * @param _key
+     * @return 
+     */
     @Override
     public boolean activeHabit(int _key) {
         String active = "Active";
@@ -160,6 +212,11 @@ public class DBHabitsSql extends DatabaseConnect implements DBHabitsInterface {
         return update;
     }
 
+    /**
+     * delete the habit
+     * @param _key
+     * @return 
+     */
     @Override
     public boolean deleteHabit(int _key) {
         String sql = "DELETE FROM habit where id =?";

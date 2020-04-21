@@ -1,13 +1,14 @@
 package Database;
-
+/**
+ * database habits interface
+ * defines the methods that need to be implemented for any
+ * @author dan
+ */
 import Model.Habit;
 import java.sql.Date;
 import java.util.List;
 
-/**
- *
- * @author luod1
- */
+
 public interface DBHabitsInterface {
 
     public List<Habit> getAll(String _name);

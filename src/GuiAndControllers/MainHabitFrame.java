@@ -31,7 +31,8 @@ public class MainHabitFrame extends javax.swing.JFrame {
     public int defualtsOne = 1;
     public int defualtsTwo = 2;
 
-    public int tableSteakday = 3;
+    //the table column information
+    public int tableSteakday = 3;   
     public int tableMaxDay = 6;
     public int tableActive = 5;
     public int maxActiveHabits = 3;
@@ -39,6 +40,8 @@ public class MainHabitFrame extends javax.swing.JFrame {
     public static Habit habit;
     private List<Habit> list;
     private String[] columnTitle = {"id", "HabitTitle", "Description", "StreakDays", "StreakTime", "Active", "MaxStreakDays"};
+    
+    // call the habits apapter
     HabitsInterface habits = new HabitsApapter();
 
     /**
@@ -47,6 +50,7 @@ public class MainHabitFrame extends javax.swing.JFrame {
     public MainHabitFrame() {
         initComponents();
         this.jlb_date.setText("Today: " + showDate());
+        //call quaryAll to show the habits information at table
         quaryAll();
     }
 
@@ -330,8 +334,12 @@ public class MainHabitFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
+    /**
+     * open the rankinglist frame
+     * @param evt 
+     */
     private void jbt_RankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_RankingActionPerformed
-        // TODO add your handling code here:
+
         new RankingListFrame().setVisible(true);
         dispose();
     }//GEN-LAST:event_jbt_RankingActionPerformed
@@ -346,7 +354,8 @@ public class MainHabitFrame extends javax.swing.JFrame {
      * @param evt
      */
     private void jbt_ShareTwitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_ShareTwitterActionPerformed
-
+        
+        //call the apapter
         TwitterUserInterface twitterUser = new TwitterUserApapter();
         TwitterInterface twitterConnect = new TwitterApapter();
 
@@ -357,6 +366,7 @@ public class MainHabitFrame extends javax.swing.JFrame {
         TwitterUserInfo user = twitterUser.selectTwitterUser((int) accessToken.getUserId());
         if (user == null) {
 
+            //insert new twitter user
             System.out.println("user == null");
             TwitterUserInfo u = new TwitterUserInfo();
             u.setTwitter_user_id((int) accessToken.getUserId());
@@ -377,6 +387,7 @@ public class MainHabitFrame extends javax.swing.JFrame {
             twitterUser.updateAccessToken(user);
 
         }
+        
         //post to twitter
         try {
             Twitter twitter = twitterConnect.connectTwitter();
@@ -438,6 +449,11 @@ public class MainHabitFrame extends javax.swing.JFrame {
         quaryAll();
     }//GEN-LAST:event_jbt_deleteHabitActionPerformed
 
+    /**
+     * controller the Sign In today button
+     * check date and update the habit information at table
+     * @param evt 
+     */
     private void jbt_DateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_DateActionPerformed
         // TODO add your handling code here:
         checkToday();
@@ -558,7 +574,7 @@ public class MainHabitFrame extends javax.swing.JFrame {
                     int new_days = this.defualtsZero;
                     new_days = checkHabit.getStreakDays() + this.defualtsOne;
                     boolean rs = habits.updateHabitDays(new_days, key, new java.sql.Date(System.currentTimeMillis()));
-                    if (key > 0 && rs) {
+                    if (key > this.defualtsZero && rs) {
                         JOptionPane.showMessageDialog(null, "keep on success!");
                     } else {
                         JOptionPane.showMessageDialog(null, "please choose a habit row!");

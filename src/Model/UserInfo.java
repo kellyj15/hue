@@ -1,8 +1,5 @@
 package Model;
 
-import java.util.UUID;
-
-
 /**
  * class for users information
  * @author dan

@@ -1,7 +1,7 @@
 package Model;
 
 /**
- * Class to represent an abstract habit. Date last edited: 2-18-2019
+ * Class to represent habit. 
  *
  * @author dan
  * @author Jesse Carter
@@ -20,24 +20,22 @@ public class Habit {
     private String isActive;
     //Short description of the habit.
     private String description;
-    //Is this a good habit or a bad habit?
-    //private boolean isGood;
-    //Number of days in a row that a habit was kept.
+    
     private int streakDays;
     //A list of dates in which this habit was kept, sorted from earliest to latest.
     //TODO - Ensure that daysKept remains sorted upon add operation.
-    //private ArrayList<LocalDate> daysKept;
+    
     //username
     private String name;
+    //the habit max streak days
     private int maxStreakDays;
+    //the flag for check date
     private String flag;
+    //the date of check 
     private Date streakTime;
 
     /**
-     * Constructor when a habit title and description is given.
-     *
-     * @param _title - The Title of the habit.
-     * @param _description - The description of the habit.
+     * Constructor when a habit information is given or not given
      */
 
     public Habit(){
@@ -136,8 +134,8 @@ public class Habit {
     }
 
     public String getFlag() {
-        return this.flag;
-    }
+       return this.flag;
+   }
 
     public Date getStreakTime() {
         return streakTime;

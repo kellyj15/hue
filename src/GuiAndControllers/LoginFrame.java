@@ -1,14 +1,14 @@
 package GuiAndControllers;
-
+/**
+ *GUI for login and controller
+ * @author dan
+ */
 import Model.ModeTranslators;
 import Translators.UserApapter;
 import javax.swing.JOptionPane;
 import Translators.UserInterface;
 
-/**
- *GUI for login 
- * @author dan
- */
+
 public class LoginFrame extends javax.swing.JFrame {
 
     /**
@@ -204,18 +204,17 @@ public class LoginFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void jbt_SsignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_SsignInActionPerformed
-        // TODO add your handling code here:
-        
+        //make sure username and password not empty
          if (this.jtx_UserName.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "user name error","login failed", JOptionPane.ERROR_MESSAGE);
             
         } else if (this.jtx_Password.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "password error","login failed", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Find user is exist at database
+            // Find user is exist at database, call the user apapter
              UserInterface tms = new UserApapter(); 
              boolean isExist = tms.isExist_User(this.jtx_UserName.getText(), this.jtx_Password.getText());
-            //boolean isExist = DatabaseModify.isExist_User(this.jtx_UserName.getText(), this.jtx_Password.getText());
+            
             if (isExist) {
                JOptionPane.showMessageDialog(null, "Login Success", "message", JOptionPane.OK_CANCEL_OPTION);
                ModeTranslators.user = tms.getUser(this.jtx_UserName.getText(), this.jtx_Password.getText());
@@ -227,20 +226,31 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbt_SsignInActionPerformed
     
+    /**
+     * open the register frame
+     * @param evt 
+     */
     private void jbt_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_RegisterActionPerformed
-        // TODO add your handling code here:
+        
         new RegisterFrame().setVisible(true);
         dispose();
     }//GEN-LAST:event_jbt_RegisterActionPerformed
 
+    /**
+     * back to the home frame
+     * @param evt 
+     */
     private void jbt_SBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_SBackActionPerformed
-        // TODO add your handling code here:
+
         new Home().setVisible(true);
         dispose();
     }//GEN-LAST:event_jbt_SBackActionPerformed
 
+    /**
+     * go to forgot password frame
+     * @param evt 
+     */
     private void jlb_forgetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_forgetPasswordMouseClicked
-        // TODO add your handling code here:
         new ForgotPassword().setVisible(true);
     }//GEN-LAST:event_jlb_forgetPasswordMouseClicked
 

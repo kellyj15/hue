@@ -203,7 +203,7 @@ public class ModifyHabitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtx_TitleActionPerformed
 
     /**
-     * add new habit
+     * add new habit, and open the main frame
      * @param evt 
      */
     private void jbt_AddHabitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_AddHabitActionPerformed
@@ -215,7 +215,7 @@ public class ModifyHabitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jbt_AddHabitActionPerformed
 
     /**
-     * update the habit
+     * update the habit, and open the main frame
      * @param evt 
      */
     private void jbt_UpdateHabitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_UpdateHabitActionPerformed
@@ -229,10 +229,11 @@ public class ModifyHabitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jbt_UpdateHabitActionPerformed
 
     /**
-     * insert habit to database
+     * insert new habit to database
      * @return 
      */
     private boolean addNewHabit() {
+        //take the habits information
         UserInfo user = ModeTranslators.user;
         String title = this.jtx_Title.getText();
         String description = this.jtxa_description.getText();

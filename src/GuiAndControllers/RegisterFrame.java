@@ -21,7 +21,7 @@ public class RegisterFrame extends javax.swing.JFrame {
     public RegisterFrame() {
         initComponents();
     }
-    
+    //call the user apapter
     UserInterface tms = new UserApapter();
     
     /**

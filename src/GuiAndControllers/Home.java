@@ -1,7 +1,7 @@
 package GuiAndControllers;
 
 /**
- * Home frame
+ * Home frame and controller
  * @author sunxi
  */
 public class Home extends javax.swing.JFrame {
@@ -120,7 +120,7 @@ public class Home extends javax.swing.JFrame {
      * @param evt 
      */
     private void jbt_HomeSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_HomeSignInActionPerformed
-        // TODO add your handling code here:
+        
         new LoginFrame().setVisible(true);
         dispose();
         
@@ -131,7 +131,7 @@ public class Home extends javax.swing.JFrame {
     * @param evt 
     */
     private void jbt_HomeSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_HomeSignUpActionPerformed
-        // TODO add your handling code here:
+       
         new RegisterFrame().setVisible(true);
         dispose();
     }//GEN-LAST:event_jbt_HomeSignUpActionPerformed

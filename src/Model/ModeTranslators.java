@@ -1,28 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
-
+/**
+ * the information of user is login 
+ * @author luod1
+ */
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author luod1
- */
-public class ModeTranslators {
-    
-   
 
-    // search habit
+public class ModeTranslators {
+
+    // search user's habit
     public static List<Habit> habit = new ArrayList<Habit>();
 
-    // username
+    // the username
     public static String userName = "";
 
-    // the user
+    // the user who is login 
     public static UserInfo user=null;
 
     // Select the table
