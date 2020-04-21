@@ -21,11 +21,11 @@ public class DBTwitterSql extends DatabaseConnect implements DBTwitterInterface 
         String sql = "select * from twitter_user where twitter_user_id=?";
 
         Object[] obj = {_twitterId};
-        TwitterUserInfo user = null;
+        TwitterUserInfo user = new TwitterUserInfo();
         ResultSet rs = this.executeQuery(sql, obj);
         try {
             while (rs.next()) {
-                user.setTwitter_user_id(rs.getInt("twitter_user_id"));
+                user.setTwitter_user_id(rs.getInt(1));
                 user.setTwitter_screen_name(rs.getString("screen_name"));
                 user.setAccess_token(rs.getString("access_token"));
                 user.setAccess_token_secret(rs.getString("access_token_secret"));
