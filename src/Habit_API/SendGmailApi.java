@@ -16,11 +16,11 @@ public class SendGmailApi implements GmailInterface{
     public static final String mail_transport_protocol = "smtp";
     public static final String mail_smtp_ssl_enable = "true";
     public static final String mail_smtp_socketFactory_class = "javax.net.ssl.SSLSocketFactory";
-    public static final String mail_InternetAddress = "luod1219@gmail.com";
+    public static final String mail_InternetAddress = "luod1219@gmail.com";// need to modify
     public static final String mail_Host = "smtp.gmail.com";
     public static final int mail_port = 465;
-    public static final String mail_username = "luod1219@gmail.com";
-    public static final String mail_password = "My931129";  
+    public static final String mail_username = "luod1219@gmail.com";//need to modify
+    public static final String mail_password = "******";  // need to modify
 
   /***
    * send email to user

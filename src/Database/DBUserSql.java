@@ -160,6 +160,12 @@ public class DBUserSql extends DatabaseConnect implements DBUserInterface {
 
     }
 
+    /**
+     * get the signed user information 
+     * @param _username
+     * @param _password
+     * @return 
+     */
     @Override
     public UserInfo getUser(String _username, String _password) {
         String sql = "select * from user where username=? and password=? ";
