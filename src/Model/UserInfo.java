@@ -26,7 +26,6 @@ public class UserInfo {
      */
     public UserInfo(String _id, String _username,String _password,String _email) { 
 	this.uuid = _id;
-       
 	this.username = _username;
 	this.password = _password;
         this.email = _email;

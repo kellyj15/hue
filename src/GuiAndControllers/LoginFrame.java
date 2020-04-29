@@ -1,13 +1,14 @@
 package GuiAndControllers;
+
 /**
- *GUI for login and controller
+ * GUI for login and controller
+ *
  * @author dan
  */
 import Model.ModeTranslators;
 import Translators.UserApapter;
 import javax.swing.JOptionPane;
 import Translators.UserInterface;
-
 
 public class LoginFrame extends javax.swing.JFrame {
 
@@ -17,6 +18,7 @@ public class LoginFrame extends javax.swing.JFrame {
     public LoginFrame() {
         initComponents();
     }
+    UserInterface tms = new UserApapter();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -186,59 +188,59 @@ public class LoginFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
+
+
     private void jbt_RegisterFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jbt_RegisterFocusGained
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_jbt_RegisterFocusGained
 
-  
+
     private void jbt_SsignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbt_SsignInMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jbt_SsignInMouseClicked
 
     /**
-     * when find user at database is true, login 
-     * @param evt 
+     * when find user at database is true, login
+     *
+     * @param evt
      */
     private void jbt_SsignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_SsignInActionPerformed
         //make sure username and password not empty
-         if (this.jtx_UserName.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "user name error","login failed", JOptionPane.ERROR_MESSAGE);
-            
+        if (this.jtx_UserName.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "user name error", "login failed", JOptionPane.ERROR_MESSAGE);
+
         } else if (this.jtx_Password.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "password error","login failed", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "password error", "login failed", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Find user is exist at database, call the user apapter
-             UserInterface tms = new UserApapter(); 
-             boolean isExist = tms.isExist_User(this.jtx_UserName.getText(), this.jtx_Password.getText());
-            
+            boolean isExist = isExist(this.jtx_UserName.getText(), this.jtx_Password.getText());
             if (isExist) {
-               JOptionPane.showMessageDialog(null, "Login Success", "message", JOptionPane.OK_CANCEL_OPTION);
-               ModeTranslators.user = tms.getUser(this.jtx_UserName.getText(), this.jtx_Password.getText());
-               new MainHabitFrame().setVisible(true);
-               dispose();
+                JOptionPane.showMessageDialog(null, "Login Success", "message", JOptionPane.OK_CANCEL_OPTION);
+                ModeTranslators.user = tms.getUser(this.jtx_UserName.getText(), this.jtx_Password.getText());
+                new MainHabitFrame().setVisible(true);
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Please enter current username and password", "Login Failed", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jbt_SsignInActionPerformed
-    
+
     /**
      * open the register frame
-     * @param evt 
+     *
+     * @param evt
      */
     private void jbt_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_RegisterActionPerformed
-        
+
         new RegisterFrame().setVisible(true);
         dispose();
     }//GEN-LAST:event_jbt_RegisterActionPerformed
 
     /**
      * back to the home frame
-     * @param evt 
+     *
+     * @param evt
      */
     private void jbt_SBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_SBackActionPerformed
 
@@ -248,11 +250,22 @@ public class LoginFrame extends javax.swing.JFrame {
 
     /**
      * go to forgot password frame
-     * @param evt 
+     *
+     * @param evt
      */
     private void jlb_forgetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_forgetPasswordMouseClicked
         new ForgotPassword().setVisible(true);
     }//GEN-LAST:event_jlb_forgetPasswordMouseClicked
+
+    /**
+     * Find user is exist at database, call the user apapter
+     *
+     * @return
+     */
+    public boolean isExist(String _username, String _password) {
+        boolean isExist = tms.isExist_User(_username, _password);
+        return isExist;
+    }
 
     /**
      * @param args the command line arguments

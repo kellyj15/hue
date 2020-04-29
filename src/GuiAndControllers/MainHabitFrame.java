@@ -32,7 +32,7 @@ public class MainHabitFrame extends javax.swing.JFrame {
     public int defualtsTwo = 2;
 
     //the table column information
-    public int tableSteakday = 3;   
+    public int tableSteakday = 3;
     public int tableMaxDay = 6;
     public int tableActive = 5;
     public int maxActiveHabits = 3;
@@ -40,7 +40,7 @@ public class MainHabitFrame extends javax.swing.JFrame {
     public static Habit habit;
     private List<Habit> list;
     private String[] columnTitle = {"id", "HabitTitle", "Description", "StreakDays", "StreakTime", "Active", "MaxStreakDays"};
-    
+
     // call the habits apapter
     HabitsInterface habits = new HabitsApapter();
 
@@ -75,7 +75,6 @@ public class MainHabitFrame extends javax.swing.JFrame {
         jbt_ShareTwitter = new javax.swing.JButton();
         jbt_Ranking = new javax.swing.JButton();
         jbt_Date = new javax.swing.JButton();
-        jbt_EditShare = new javax.swing.JButton();
         jlb_date = new javax.swing.JLabel();
         jbt_AddHabit = new javax.swing.JButton();
         jbt_UpdateHabit = new javax.swing.JButton();
@@ -171,9 +170,6 @@ public class MainHabitFrame extends javax.swing.JFrame {
             }
         });
 
-        jbt_EditShare.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jbt_EditShare.setText("Edit");
-
         jlb_date.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jlb_date.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -194,9 +190,7 @@ public class MainHabitFrame extends javax.swing.JFrame {
                 .addComponent(jbt_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jbt_EditShare, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbt_ShareTwitter)
                 .addGap(73, 73, 73))
             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -215,9 +209,7 @@ public class MainHabitFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jtx_ShareTwitter, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbt_ShareTwitter)
-                    .addComponent(jbt_EditShare))
+                .addComponent(jbt_ShareTwitter)
                 .addGap(34, 34, 34))
         );
 
@@ -333,10 +325,10 @@ public class MainHabitFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     /**
      * open the rankinglist frame
-     * @param evt 
+     *
+     * @param evt
      */
     private void jbt_RankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_RankingActionPerformed
 
@@ -354,50 +346,54 @@ public class MainHabitFrame extends javax.swing.JFrame {
      * @param evt
      */
     private void jbt_ShareTwitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_ShareTwitterActionPerformed
-        
+
         //call the apapter
         TwitterUserInterface twitterUser = new TwitterUserApapter();
         TwitterInterface twitterConnect = new TwitterApapter();
 
         // get twitter access
         AccessToken accessToken = twitterConnect.getAccessToken();
+        if (accessToken == null) {
+            JOptionPane.showMessageDialog(null, "Try again", "Error", JOptionPane.WARNING_MESSAGE);
+        } else {
 
-        //search in user's database, if user is exist or not
-        TwitterUserInfo user = twitterUser.selectTwitterUser((int) accessToken.getUserId());
-        if (user == null) {
+            //search in user's database, if user is exist or not
+            TwitterUserInfo user = twitterUser.selectTwitterUser((int) accessToken.getUserId());
+            if (user == null) {
 
-            //insert new twitter user
-            System.out.println("user == null");
-            TwitterUserInfo u = new TwitterUserInfo();
-            u.setTwitter_user_id((int) accessToken.getUserId());
-            u.setTwitter_screen_name(accessToken.getScreenName());
-            u.setAccess_token(accessToken.getToken());
-            u.setAccess_token_secret(accessToken.getTokenSecret());
-            boolean insert = twitterUser.insertTwitterUser(u);
-            if (insert == true) {
-                System.out.println("insert new twitter account success");
+                //insert new twitter user
+                System.out.println("user == null");
+                TwitterUserInfo u = new TwitterUserInfo();
+                u.setTwitter_user_id((int) accessToken.getUserId());
+                u.setTwitter_screen_name(accessToken.getScreenName());
+                u.setAccess_token(accessToken.getToken());
+                u.setAccess_token_secret(accessToken.getTokenSecret());
+                boolean insert = twitterUser.insertTwitterUser(u);
+                if (insert == true) {
+                    System.out.println("insert new twitter account success");
+                } else {
+                    System.out.println("insert new twitter account falid");
+                }
+
             } else {
-                System.out.println("insert new twitter account falid");
+                // if user already in database, update access token
+                user.setAccess_token(accessToken.getToken());
+                user.setAccess_token_secret(accessToken.getTokenSecret());
+                twitterUser.updateAccessToken(user);
+
             }
 
-        } else {
-            // if user already in database, update access token
-            user.setAccess_token(accessToken.getToken());
-            user.setAccess_token_secret(accessToken.getTokenSecret());
-            twitterUser.updateAccessToken(user);
-
-        }
-        
-        //post to twitter
-        try {
-            Twitter twitter = twitterConnect.connectTwitter();
-            twitter.setOAuthAccessToken(accessToken);
-            String experience = "Habits Training: ";
-            twitter.updateStatus(experience + this.jtx_ShareTwitter.getText()); // infomation to post 
-            JOptionPane.showMessageDialog(null, "Post success!");
-            //System.out.println("Successfully updated the status in Twitter.");
-        } catch (TwitterException te) {
-            JOptionPane.showMessageDialog(null, "Try again", "Error", JOptionPane.WARNING_MESSAGE);
+            //post to twitter
+            try {
+                Twitter twitter = twitterConnect.connectTwitter();
+                twitter.setOAuthAccessToken(accessToken);
+                String experience = "Habits Training: ";
+                twitter.updateStatus(experience + this.jtx_ShareTwitter.getText()); // infomation to post 
+                JOptionPane.showMessageDialog(null, "Post success!");
+                //System.out.println("Successfully updated the status in Twitter.");
+            } catch (TwitterException te) {
+                JOptionPane.showMessageDialog(null, "Try again", "Error", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jbt_ShareTwitterActionPerformed
 
@@ -429,12 +425,15 @@ public class MainHabitFrame extends javax.swing.JFrame {
             }
             //set habit information at modify habit frame 
             ModifyHabitFrame.rowId = key;
-        }catch (Exception e){
-             JOptionPane.showMessageDialog(null, "Please selected the habit");
+
+            new ModifyHabitFrame().setVisible(true);
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please selected the habit");
+
         }
 
-        new ModifyHabitFrame().setVisible(true);
-        dispose();
+
     }//GEN-LAST:event_jbt_UpdateHabitActionPerformed
 
     private void jbt_ActiveHabitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_ActiveHabitActionPerformed
@@ -450,9 +449,10 @@ public class MainHabitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jbt_deleteHabitActionPerformed
 
     /**
-     * controller the Sign In today button
-     * check date and update the habit information at table
-     * @param evt 
+     * controller the Sign In today button check date and update the habit
+     * information at table
+     *
+     * @param evt
      */
     private void jbt_DateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbt_DateActionPerformed
         // TODO add your handling code here:
@@ -700,7 +700,6 @@ public class MainHabitFrame extends javax.swing.JFrame {
     private javax.swing.JButton jbt_ActiveHabit;
     private javax.swing.JButton jbt_AddHabit;
     private javax.swing.JButton jbt_Date;
-    private javax.swing.JButton jbt_EditShare;
     private javax.swing.JButton jbt_Ranking;
     private javax.swing.JButton jbt_ShareTwitter;
     private javax.swing.JButton jbt_UpdateHabit;

@@ -1,10 +1,10 @@
 package Habit_API;
 
 /**
- * Class is TwitterApi, to connect Twitter and get authorization from user 
+ * Class is TwitterApi, to connect Twitter and get authorization from user
+ *
  * @author luod1
  */
-
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
@@ -18,9 +18,7 @@ import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
-
-
-public class TwitterApi implements TwitterInterface{
+public class TwitterApi implements TwitterInterface {
 
     //Also denoted as "Consumer Key"
     private static final String APIKEY = "vi3H0nrlnxG4zVUbbI3pFFVt2";
@@ -28,10 +26,10 @@ public class TwitterApi implements TwitterInterface{
     private static final String APIKEYSECRET = "l2xGFfN6OMMC595uxgVPsnUKEPUXR5SzMtgCWbfpBEbzycoa5E";
 
     Twitter twitter = null;
-    
+
     //public static String pin ="";
     @Override
-    public  Twitter connectTwitter() {
+    public Twitter connectTwitter() {
         //Create a configuration builder to set properties related to authentication.
         ConfigurationBuilder builder = new ConfigurationBuilder();
 
@@ -55,7 +53,7 @@ public class TwitterApi implements TwitterInterface{
      * @return
      */
     @Override
-    public  AccessToken getAccessToken() {
+    public AccessToken getAccessToken() {
         this.twitter = connectTwitter();
         this.twitter.setOAuthAccessToken(null);
         AccessToken accessToken = null;
@@ -73,36 +71,39 @@ public class TwitterApi implements TwitterInterface{
             }
             // get authorization pin from user
             String pin = JOptionPane.showInputDialog(null,
-                "Do you want to authorization?",
-                "Enter authorization pin:",
-                JOptionPane.QUESTION_MESSAGE);
-            try {
-                if (pin.length() > 0) {
-                    accessToken = this.twitter.getOAuthAccessToken(requestToken, pin);
-                } else {
-                    accessToken = this.twitter.getOAuthAccessToken(requestToken);
+                    "Do you want to authorization?",
+                    "Enter authorization pin:",
+                    JOptionPane.QUESTION_MESSAGE);
+            if (pin == null || pin.equals("")) {
+                System.out.println("Unable to get the access token.");
+                return null;
+            } else {
+                try {
+                    if (pin.length() > 0) {
+                        accessToken = this.twitter.getOAuthAccessToken(requestToken, pin);
+                    } else {
+                        accessToken = this.twitter.getOAuthAccessToken(requestToken);
+                    }
+                } catch (TwitterException te) {
+                    if (401 == te.getStatusCode()) {
+                        System.out.println("Unable to get the access token.");
+                    } else {
+                        System.out.println("Unable to get the access token.");
+                    }
                 }
-            } catch (TwitterException te) {
-                if (401 == te.getStatusCode()) {
-                    System.out.println("Unable to get the access token.");
-                } else {
-                    te.printStackTrace();
-                }
+
+                System.out.println("Got access token.");
+                System.out.println("Access token: " + accessToken.getToken());
+                System.out.println("Access token secret: " + accessToken.getTokenSecret());
+
+                return accessToken;
             }
-
-            System.out.println("Got access token.");
-            System.out.println("Access token: " + accessToken.getToken());
-            System.out.println("Access token secret: " + accessToken.getTokenSecret());
-
-            return accessToken;
-
         } catch (TwitterException te) {
-            te.printStackTrace();
+            //te.printStackTrace();
             System.out.println("Failed to get accessToken: " + te.getMessage());
         }
 
         return accessToken;
     }
 
-    
 }
