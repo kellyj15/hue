@@ -99,7 +99,7 @@ public class RegisterTest {
      */
     public static void main(String rag[]) {
         RegisterTest rgtest = new RegisterTest();
-        UserInfo u = new UserInfo("2248b43a-1459-4368-b3aa-5a9d73ef341a", "admin", "rootroot", "admin@gmail.com");
+        UserInfo u = new UserInfo("2248b43a-1459-4368-b3aa-5a9d73ef344a", "admin2", "rootroot", "admin2@gmail.com");
         boolean register = rgtest.testInsert(u);
         System.out.println(register);
     }
